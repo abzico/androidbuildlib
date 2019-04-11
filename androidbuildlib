@@ -17,6 +17,13 @@
 # Twitter: @haxpor or @abzi_co
 #
 
+# prior check for existence of configure, and Makefile
+if [ ! -e configure ] || [ ! -e Makefile ]
+then
+  echo "Cannot find either configure or Makefile file"
+  exit 1
+fi
+
 # host that builds
 if [ -z $host_tag ]
 then
