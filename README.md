@@ -3,7 +3,7 @@ Script to build autotools-based library project for Android with configurable se
 
 # Install
 
-Place `androidbuildlib` at your executable path i.e. `/usr/local/bin/`.
+Place `androidbuildlib` at your executable path i.e. `/usr/local/bin/` or even sym-link it as per your convenient.
 Then you're ready to use it.
 
 # How to use
