@@ -25,6 +25,53 @@ then
   exit 1
 fi
 
+# print help text for available parameters that can be used
+print_help()
+{
+  __text="
+Configurable parameters
+   out_path          - target installation path to install generated library files for all archs,
+                       it need to be in relative path from the directory executing this script [default is build]
+   host_tag          - host value that will build the library (hint: you can take a look for this value
+                       at your \$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/ [default is linux-x86_64]
+   minsdkversion     - minimum sdk version to support, this is value of api level [default is 18]
+   target_abis       - target abis to build for, separated by space [default is \"armeabi-v7a x86 arm64-v8a x86_64\"]
+   configure_params  - additional params to pass to ./configure
+"
+  echo "$__text"
+}
+
+out_path=build
+host_tag=linux-x86_64
+minsdkversion=18
+target_abis="armeabi-v7a x86 arm64-v8a x86_64"
+configure_params=""
+
+for ARGUMENT in "$@"
+do
+  KEY=$(echo $ARGUMENT | cut -f1 -d=)
+  VALUE=$(echo $ARGUMENT | cut -f2- -d=)
+
+  case "$KEY" in
+    "out_path" ) out_path="${VALUE}" ;;
+    "host_tag" ) host_tag="${VALUE}" ;;
+    "minsdkversion" ) minsdkversion="${VALUE}" ;;
+    "target_abis" ) target_abis="${VALUE}" ;;
+    "configure_params" ) 
+      configure_params="${VALUE}"
+      echo $VALUE
+      ;;
+    *)
+      echo ""
+      echo "Unknown '$KEY' parameter"
+      print_help
+      exit 1
+      ;;
+  esac
+done
+
+# now set default values if there's no custom parameters whatsoever
+
 # host that builds
 if [ -z $host_tag ]
 then
@@ -60,6 +107,15 @@ if [ -z $out_path ]
 then
   out_path=build
 fi
+
+echo ""
+echo "-Will use following setting-"
+echo "output             = $out_path"
+echo "host_tag           = $host_tag"
+echo "minsdkversion      = $minsdkversion"
+echo "target_abis        = $target_abis"
+echo "configure_params   = $configure_params"
+echo ""
 
 # check to create installation dir of built library files
 if [ ! -d "$out_path" ]
@@ -111,10 +167,13 @@ do
     CFLAGS="${CFLAGS} -march=x86-64 -msse4.2 -mpopcnt -m64 -mtune=intel"
   fi
   
-  echo $cc_prefix
-  echo $support_prefix
-  echo $host
-  echo $CFLAGS
+  echo ""
+  echo "cc_prefix           = $cc_prefix"
+  echo "support_prefix      = $support_prefix"
+  echo "host                = $host"
+  echo "install_dir         = $install_dir"
+  echo "CFLAGS              = $CFLAGS"
+  echo ""
   
   export AR=$TOOLCHAIN/bin/${support_prefix}ar
   export AS=$TOOLCHAIN/bin/${support_prefix}as
@@ -124,10 +183,10 @@ do
   export RANLIB=$TOOLCHAIN/bin/${support_prefix}ranlib
   export STRIP=$TOOLCHAIN/bin/${support_prefix}strip
 
-  ./configure --host="$host" --prefix="$install_dir" "${configure_params}"
-  make clean
-  make -j4
-  make install
+  ./configure --host="$host" --prefix="$install_dir" $configure_params || exit
+  make clean || exit
+  make -j4 || exit
+  make install || exit
 
   echo "Done building $target"
 done
