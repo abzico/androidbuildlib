@@ -15,10 +15,11 @@ By default it will build the libraries according to what has been set in Makefil
 
 You have the following configurable settings
 
-* `out_path` - target installation path to install generated library files for all archs, it need to be in relative path from the directory executing this script [**default** is `build`]
-* `host_tag` - host value that will build the library (hint: you can take a look for this value at your `$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/` [**default** is `linux-x86_64`]
-* `minsdkversion`   - minimum sdk version to support, this is value of api level [**default** is 18]
-* `target_abis` - target abis to build for, separated by space [**default** is "armeabi-v7a x86 arm64-v8a x86_64"]
+* `out_path` - target installation path to install generated library files for all archs, it need to be in relative path from the directory executing this script [default is `build`]
+* `host_tag` - host value that will build the library (hint: you can take a look for this value at your `$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/` [default is `linux-x86_64`]
+* `minsdkversion`   - minimum sdk version to support, this is value of api level [default is 18]
+* `target_abis` - target abis to build for, separated by space [default is "armeabi-v7a x86 arm64-v8a x86_64"]
+* `configure_params` - addtitional parameters to add to `./configure`. [default is empty]
 
 To execute with custom settings, you do it like this
 
