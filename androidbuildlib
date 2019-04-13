@@ -19,7 +19,7 @@
 #
 
 # prior check for existence of configure, and Makefile
-if [ ! -e configure ] || [ ! -e Makefile ]
+if [ ! -e configure ] && [ [ ! -e Makefile ] || [ ! -e makefile ] ]
 then
   echo "Cannot find either configure or Makefile file"
   exit 1
