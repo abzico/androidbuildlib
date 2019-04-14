@@ -41,6 +41,13 @@ Configurable parameters
   echo "$__text"
 }
 
+# print help
+if [ "$1" == "--help" ]
+then
+  print_help
+  exit
+fi
+
 out_path=build
 host_tag=linux-x86_64
 minsdkversion=18
