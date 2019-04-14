@@ -18,13 +18,6 @@
 # Twitter: @haxpor or @abzi_co
 #
 
-# prior check for existence of configure, and Makefile
-if [ ! -e configure ] && { [ ! -e Makefile ] || [ ! -e makefile ]; }
-then
-  echo "Cannot find either configure or Makefile file"
-  exit 1
-fi
-
 # print help text for available parameters that can be used
 print_help()
 {
@@ -48,7 +41,14 @@ then
   exit
 fi
 
-out_path=build
+# check for existence of configure, and Makefile
+if [ ! -e configure ] && { [ ! -e Makefile ] || [ ! -e makefile ]; }
+then
+  echo "Cannot find either configure or Makefile file"
+  exit 1
+fi
+
+out_path=libs
 host_tag=linux-x86_64
 minsdkversion=18
 target_abis="armeabi-v7a x86 arm64-v8a x86_64"
@@ -76,44 +76,6 @@ do
       ;;
   esac
 done
-
-# now set default values if there's no custom parameters whatsoever
-
-# host that builds
-if [ -z $host_tag ]
-then
-  host_tag=linux-x86_64
-fi
-
-# mininum sdk version
-# since 18, it has OpenGL ES 3.0 support
-# that's why we use that number here
-if [ -z $minsdkversion ]
-then
-  minsdkversion=18
-fi
-
-# target abis
-# see https://developer.android.com/ndk/guides/abis.html#sa
-# the latter two needs api level at least 21 so we need special care for these twos
-# you can check its executable file names at $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/$host_tag/bin
-# provided that you have set $ANDROID_NDK_HOME and use defined $host_tag above
-if [ -z $target_abis ]
-then
-  target_abis="armeabi-v7a x86 arm64-v8a x86_64"
-fi
-
-# additional configure parameters
-if [ -z $configure_params ]
-then
-  configure_params=""
-fi
-
-# output path
-if [ -z $out_path ]
-then
-  out_path=libs
-fi
 
 echo ""
 echo "-Will use following setting-"
