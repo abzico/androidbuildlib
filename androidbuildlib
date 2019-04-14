@@ -7,7 +7,7 @@
 #
 # configurable parameters
 #   out_path          - target installation path to install generated library files for all archs,
-#                       it need to be in relative path from the directory executing this script [default is build]
+#                       it need to be in relative path from the directory executing this script [default is libs]
 #   host_tag          - host value that will build the library (hint: you can take a look for this value
 #                       at your $ANDROID_NDK_HOME/toolchains/llvm/prebuilt/ [default is linux-x86_64]
 #   minsdkversion     - minimum sdk version to support, this is value of api level [default is 18]
@@ -31,7 +31,7 @@ print_help()
   __text="
 Configurable parameters
    out_path          - target installation path to install generated library files for all archs,
-                       it need to be in relative path from the directory executing this script [default is build]
+                       it need to be in relative path from the directory executing this script [default is libs]
    host_tag          - host value that will build the library (hint: you can take a look for this value
                        at your \$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/ [default is linux-x86_64]
    minsdkversion     - minimum sdk version to support, this is value of api level [default is 18]
@@ -112,7 +112,7 @@ fi
 # output path
 if [ -z $out_path ]
 then
-  out_path=build
+  out_path=libs
 fi
 
 echo ""

@@ -24,7 +24,7 @@ You have the following configurable settings
 To execute with custom settings, you do it like this
 
 ```
-out_path=mybuild target_abis="armeabi-v7a x86" androidbuildlib
+androidbuildlib out_path=mybuild target_abis="armeabi-v7a x86"
 ```
 
 That will build for target `armeabi-v7a` and `x86`, then put the result library files into `mybuild` directory. Other default settings are applied, so it is built against api level 18, and on linux 64-bit as host.
