@@ -29,6 +29,10 @@ out_path=mybuild target_abis="armeabi-v7a x86" androidbuildlib
 
 That will build for target `armeabi-v7a` and `x86`, then put the result library files into `mybuild` directory. Other default settings are applied, so it is built against api level 18, and on linux 64-bit as host.
 
+## Show Help Text
+
+Use `androidbuildlib --help` to show help text.
+
 # Note
 
 For now, it only works for a library project that depends on standard libraries which Android already provided like libz etc. But it won't work if the library project depends on something else custom.
