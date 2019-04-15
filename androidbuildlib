@@ -64,10 +64,7 @@ do
     "host_tag" ) host_tag="${VALUE}" ;;
     "minsdkversion" ) minsdkversion="${VALUE}" ;;
     "target_abis" ) target_abis="${VALUE}" ;;
-    "configure_params" ) 
-      configure_params="${VALUE}"
-      echo $VALUE
-      ;;
+    "configure_params" ) configure_params="${VALUE}" ;;
     *)
       echo ""
       echo "Unknown '$KEY' parameter"
