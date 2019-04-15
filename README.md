@@ -20,6 +20,7 @@ You have the following configurable settings
 * `minsdkversion`   - minimum sdk version to support, this is value of api level [default is 18]
 * `target_abis` - target abis to build for, separated by space [default is "armeabi-v7a x86 arm64-v8a x86_64"]
 * `configure_params` - addtitional parameters to add to `./configure`. [default is empty]
+* `fresh_build`      - whether or not this is a fresh build, user might be using this when repeatitively build the same project over and over i.e. while debugging, so there's no need to keep re-execute './configure' and 'make clean' again. [default is true]
 
 To execute with custom settings, you do it like this
 
